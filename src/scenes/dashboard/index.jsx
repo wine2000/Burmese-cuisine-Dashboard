@@ -46,9 +46,6 @@ const Dashboard = () => {
         gridAutoRows="140px"
         gap="20px"
       >
-
-
-
         {/* ROW 1 */}
         <Box
           gridColumn="span 4"
@@ -219,10 +216,6 @@ const Dashboard = () => {
           ))}
         </Box> */}
 
-
-
-
-
         {/* ROW 3 */}
         {/* <Box
           gridColumn="span 4"
@@ -250,7 +243,7 @@ const Dashboard = () => {
             <Typography>Includes extra misc expenditures and costs</Typography>
           </Box>
         </Box> */}
-        <Box
+        {/* <Box
           gridColumn="span 8"
           gridRow="span 3"
           backgroundColor={colors.primary[400]}
@@ -265,7 +258,7 @@ const Dashboard = () => {
           <Box height="250px" mt="-20px">
             <BarChart isDashboard={true} />
           </Box>
-        </Box>
+        </Box> */}
 
         <Box
           gridColumn="span 4"

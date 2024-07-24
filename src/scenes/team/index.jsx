@@ -1,3 +1,4 @@
+import React,{useEffect,useState} from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -10,6 +11,20 @@ import Header from "../../components/Header";
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [product,setProduct] = useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:4000/products/allProduct')
+        .then(response => response.json())
+        .then(data => {
+            setProduct(data.result);
+        })
+        .catch(error => {
+            console.error('There was an error fetching the product data!', error);
+        });
+}, []);
+
+console.log("pro",product)
   const columns = [
     { field: "id", headerName: "ID" },
     {
