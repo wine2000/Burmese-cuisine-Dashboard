@@ -1,31 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Formik, Form } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../../components/Header";
 
-const AddProduct = () => {
+const AddProduct = ({ onSave }) => { // Accept onSave as a prop
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   const location = useLocation();
   const { item } = location.state || {};
+  const [selectedImage, setSelectedImage] = useState(item ? `http://localhost:4000/${item.image}` : null);
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
-    navigate("/another_page");
-  };
+
 
   const handleCancel = () => {
     navigate("/category");
   };
 
+  const handleImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setSelectedImage(e.target.result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  };
+
+  const handleFormSubmit = async (values, { setSubmitting, setError, setSuccess }) => {
+    setSubmitting(true);
+
+    const formData = new FormData();
+
+    // Append form fields to FormData
+    Object.keys(values).forEach((key) => {
+        if (Array.isArray(values[key])) {
+            formData.append(key, JSON.stringify(values[key]));
+        } else {
+            formData.append(key, values[key]);
+        }
+    });
+
+    // Append image separately
+    if (values.image instanceof File) {
+        formData.append('image', values.image);
+    }
+    try {
+        const response = await fetch('http://localhost:4000/products/addProduct', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const data = await response.json();
+        
+        if (response.ok) {
+            setSuccess('Product uploaded successfully!');
+            setError('');
+        } else {
+            setError(data.message || 'Error uploading product');
+            setSuccess('');
+            alert("successful")
+        }
+    } catch (err) {
+        setError('Error uploading product');
+        setSuccess('');
+        alert("fail")
+    } finally {
+        setSubmitting(false);
+    }
+};
+
   return (
     <Box m="10px">
       <Header title="Add Products" />
-      {item && (
+      {selectedImage && (
         <Box mb="10px">
-          <img src={`http://localhost:4000/${item.image}`} alt={item.name} style={{ width: '50%', height: 'auto' }} />
+          <img src={selectedImage} alt="Selected" style={{ width: '50%', height: 'auto' }} />
         </Box>
       )}
       <Formik
@@ -33,8 +84,8 @@ const AddProduct = () => {
           name: item ? item.name : "",
           name_mm: item ? item.name_mm : "",
           image: item ? item.image : "",
-          description: item ? item.description : "",
-          description_mm: item ? item.description_mm : "",
+          recipe: item ? item.recipe : "",
+          recipe_mm: item ? item.recipe_mm : "",
           ingredients: item ? item.ingredients : "",
           ingredients_mm: item ? item.ingredients_mm : "",
           category: item ? item.category : "",
@@ -75,16 +126,20 @@ const AddProduct = () => {
                   fullWidth
                   margin="normal"
                 />
-                <TextField
-                  label="Image URL"
-                  name="image"
-                  value={values.image}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                />
+                <Box mt="20px" mb="20px">
+                  <Button
+                    variant="contained"
+                    component="label"
+                  >
+                    Upload Image
+                    <input
+                      type="file"
+                      hidden
+                      accept="image/*"
+                      onChange={handleImageChange}
+                    />
+                  </Button>
+                </Box>
                 <TextField
                   label="Category"
                   name="category"
@@ -106,37 +161,37 @@ const AddProduct = () => {
                   margin="normal"
                 />
                 <Box
-              display="flex"
-              mt="10px"
-              justifyContent="center"
-              width="fit-content"
-            >
-              <Button
-                type="submit"
-                color="secondary"
-                variant="contained"
-                style={{ marginRight: "20px" }}
-              >
-                Save
-              </Button>
-              <Button
-                type="button"
-                color="secondary"
-                variant="contained"
-                onClick={handleCancel}
-              >
-                Cancel
-              </Button>
-            </Box>
+                  display="flex"
+                  mt="10px"
+                  justifyContent="center"
+                  width="fit-content"
+                >
+                  <Button
+                    type="submit"
+                    color="secondary"
+                    variant="contained"
+                    style={{ marginRight: "20px" }}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    type="button"
+                    color="secondary"
+                    variant="contained"
+                    onClick={handleCancel}
+                  >
+                    Cancel
+                  </Button>
+                </Box>
               </Box>
 
               {/* Second Section */}
               <Box>
                 <Typography variant="h6">Details</Typography>
                 <TextField
-                  label="Description"
-                  name="description"
-                  value={values.description}
+                  label="recipe"
+                  name="recipe"
+                  value={values.recipe}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   variant="outlined"
@@ -147,9 +202,9 @@ const AddProduct = () => {
                   multiline={true}
                 />
                 <TextField
-                  label="Description (MM)"
-                  name="description_mm"
-                  value={values.description_mm}
+                  label="recipe (MM)"
+                  name="recipe_mm"
+                  value={values.recipe_mm}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   variant="outlined"
@@ -187,7 +242,6 @@ const AddProduct = () => {
                 />
               </Box>
             </Box>
-            
           </Form>
         )}
       </Formik>

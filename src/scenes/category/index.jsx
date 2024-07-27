@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, Card, CardMedia, CardContent, Typography, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
+import AddProduct from '../../scenes/addproduct';
 
 const Category = () => {
+  
+
+  
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   const [data, setData] = useState([]);
@@ -28,6 +32,7 @@ const Category = () => {
   return (
     <Box m="20px">
       <Header title="Ethnical Food"/>
+      
       <Button
         onClick={handleEditButtonClick}
         color="secondary"
@@ -36,6 +41,7 @@ const Category = () => {
       >
         ADD PRODUCT
       </Button>
+     
       <Box
         display="grid"
         gap="15px"

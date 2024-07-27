@@ -9,7 +9,7 @@ const SeasonFood = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/products/allProduct')
+    fetch('http://localhost:4000/ethnical/allProduct')
       .then(response => response.json())
       .then(data => {
         setData(data.result);
