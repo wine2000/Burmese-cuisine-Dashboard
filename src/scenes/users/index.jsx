@@ -1,17 +1,21 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import React, { useState, useEffect } from 'react';
 
 const Users = () => {
+
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-   
     {
       field: "name",
       headerName: "Name",
@@ -30,6 +34,37 @@ const Users = () => {
     },
   ];
 
+  useEffect(() => {
+    // Fetch users from the backend API
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/users/user/getAllUser`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        
+        // Map the data to include an 'id' field
+        const usersWithId = data.map(user => ({
+          ...user,
+          id: user._id
+        }));
+
+        setUsers(usersWithId);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  console.log("users", users);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
   return (
     <Box m="20px">
       <Header
@@ -69,8 +104,9 @@ const Users = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={users}
           columns={columns}
+          getRowId={(row) => row.id}
           components={{ Toolbar: GridToolbar }}
         />
       </Box>
