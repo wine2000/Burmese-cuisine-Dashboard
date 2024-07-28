@@ -23,6 +23,7 @@ import SeasonFood from "./scenes/seasonfood/seasonfoods";
 import SeasonalDetail from "./scenes/seasonaledit/SeasonalDetail";
 import EthnicalDetail from "./scenes/ethnicaledit/EthnicalDetail";
 import CommentCard from "./scenes/commentCard/commentCard";
+import AddProduct1 from "./scenes/product/AddProduct";
 
 
 function App() {
@@ -57,7 +58,7 @@ function App() {
               <Route path="/ethnicalDetail" element={<EthnicalDetail/>}/>
               <Route path="/seasonalDetail" element={<SeasonalDetail/>}/>
               <Route path="/commentCard" element={<CommentCard/>}/>
-              
+              <Route path="/AddProduct1" element={<AddProduct1/>}/>
             </Routes>
           </main>
         </div>
