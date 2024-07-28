@@ -6,13 +6,15 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../../components/Header";
 
-const Edit = () => {
+const EthnicalDetail = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   const location = useLocation();
   const { item } = location.state || {};
 
-  const articleId = item._id
+  const productId = item._id
+
+  console.log("pro",productId)
 
   const handleFormSubmit = (values) => {
     console.log(values);
@@ -25,9 +27,10 @@ const Edit = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(`http://localhost:4000/articles/${articleId}`);
-      console.log(response.data.message); // 'Article deleted'
-      navigate("/category"); // Navigate to category after deletion
+      const response = await axios.delete(`http://localhost:4000/ethnical/${productId}`);
+      console.log(response.data.message);
+      alert("product deleted");// 'Article deleted'
+      navigate("/ethnicalFood"); // Navigate to category after deletion
     } catch (error) {
       console.error(error.response ? error.response.data.message : error.message);
     }
@@ -216,4 +219,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default EthnicalDetail;

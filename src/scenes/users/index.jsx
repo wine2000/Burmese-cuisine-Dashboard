@@ -1,9 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import React, { useState, useEffect } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Users = () => {
 
@@ -31,6 +32,16 @@ const Users = () => {
       field: "email",
       headerName: "Email",
       flex: 1,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      renderCell: (users) => (
+        <IconButton onClick={() => handleDelete(users.id)}>
+          <DeleteIcon style={{ color: colors.redAccent[400] }} />
+        </IconButton>
+      ),
     },
   ];
 
@@ -61,6 +72,23 @@ const Users = () => {
     fetchUsers();
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:4000/users/user/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      // Update the state after a successful delete
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      setError(error.message);
+    }
+  };
   console.log("users", users);
 
   if (loading) return <p>Loading...</p>;

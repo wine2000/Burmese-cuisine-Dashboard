@@ -17,9 +17,13 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 import Edit from "./scenes/edit";
-import Category from "./scenes/category";
+import EthnicalFood from "./scenes/ethnicalfood";
 import AddProduct from "./scenes/addproduct";
 import SeasonFood from "./scenes/seasonfood/seasonfoods";
+import SeasonalDetail from "./scenes/seasonaledit/SeasonalDetail";
+import EthnicalDetail from "./scenes/ethnicaledit/EthnicalDetail";
+import CommentCard from "./scenes/commentCard/commentCard";
+
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -47,9 +51,13 @@ function App() {
               <Route path="/geography" element={<Geography />} />
               <Route path="/products" element={<Product/>}/>
               <Route path="/edit" element={<Edit/>}/>
-              <Route path="/category" element={<Category/>}/>
+              <Route path="/ethnicalfood" element={<EthnicalFood/>}/>
               <Route path="/addProduct" element={<AddProduct/>}/>
               <Route path="/seasonfood" element={<SeasonFood/>}/>
+              <Route path="/ethnicalDetail" element={<EthnicalDetail/>}/>
+              <Route path="/seasonalDetail" element={<SeasonalDetail/>}/>
+              <Route path="/commentCard" element={<CommentCard/>}/>
+              
             </Routes>
           </main>
         </div>

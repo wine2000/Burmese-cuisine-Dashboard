@@ -170,7 +170,7 @@ const Sidebar = () => {
             />
             <Item
               title="Ethnical Food"
-              to="/category"
+              to="/ethnicalfood"
               icon={<EditIcon />}
               selected={selected}
               setSelected={setSelected}

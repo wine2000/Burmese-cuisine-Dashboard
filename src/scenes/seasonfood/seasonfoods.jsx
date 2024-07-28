@@ -9,7 +9,7 @@ const SeasonFood = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/ethnical/allProduct')
+    fetch('http://localhost:4000/products/allProduct')
       .then(response => response.json())
       .then(data => {
         setData(data.result);
@@ -20,7 +20,7 @@ const SeasonFood = () => {
   }, []);
 
   const handleImageClick = (item) => {
-    navigate("/edit", { state: { item } });
+    navigate("/seasonalDetail", { state: { item } });
   };
   const handleEditButtonClick = () => {
     navigate("/addProduct");

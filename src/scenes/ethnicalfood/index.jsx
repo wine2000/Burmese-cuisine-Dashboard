@@ -2,18 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, Card, CardMedia, CardContent, Typography, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
-import AddProduct from '../../scenes/addproduct';
 
-const Category = () => {
-  
 
+const EthnicalFood = () => {
   
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/products/allProduct')
+    fetch('http://localhost:4000/ethnical/allProduct')
       .then(response => response.json())
       .then(data => {
         setData(data.result);
@@ -24,7 +22,7 @@ const Category = () => {
   }, []);
 
   const handleImageClick = (item) => {
-    navigate("/edit", { state: { item } });
+    navigate("/ethnicalDetail", { state: { item } });
   };
   const handleEditButtonClick = () => {
     navigate("/addProduct");
@@ -73,4 +71,4 @@ const Category = () => {
     </Box>
   );
 };
-export default Category;
+export default EthnicalFood;

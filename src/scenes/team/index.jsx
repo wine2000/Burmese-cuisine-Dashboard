@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
+import CommentCard from "../commentCard/commentCard";
 import Header from "../../components/Header";
 
 const Team = () => {
-  const [users, setUsers] = useState([]);
+  const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
 
   useEffect(() => {
-    // Fetch users from the backend API
-    const fetchUsers = async () => {
+    const fetchFeedbacks = async () => {
       try {
         const response = await fetch(`http://localhost:4000/feedback/allFeedback`);
         if (!response.ok) {
@@ -21,85 +18,53 @@ const Team = () => {
         }
         const data = await response.json();
 
-        // Log data to check structure
         console.log("Fetched data:", data);
 
-        // Map the data to include an 'id' field and user name
-        const usersWithIdAndName = data.map(feedback => ({
+        const feedbacksWithIdAndName = data.map(feedback => ({
           ...feedback,
           id: feedback._id,
-          name: feedback.user.name,  // Extract user name here
+          user: { ...feedback.user},
         }));
-
-        console.log("Mapped users with ID and name:", usersWithIdAndName);
-        setUsers(usersWithIdAndName);
+      console.log(data.name);
+        console.log("Mapped feedbacks with ID and name:", feedbacksWithIdAndName);
+        setFeedbacks(feedbacksWithIdAndName);
       } catch (error) {
+        console.error("Fetch error:", error.message);
         setError(error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUsers();
+    fetchFeedbacks();
   }, []);
 
-  console.log("users", users);
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:4000/feedback/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete feedback');
+      }
+
+      setFeedbacks(feedbacks.filter(feedback => feedback.id !== id));
+    } catch (error) {
+      console.error("Delete error:", error.message);
+      setError(error.message);
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const columns = [
-    { field: "id",flex: 2, headerName: "ID" },
-    {
-      field: "name",
-      headerName: "Name",
-      flex: 2,
-      cellClassName: "name-column--cell",
-    },
-    {
-      field: "comment",
-      headerName: "Comment",
-      flex: 1,
-    },
-  ];
-
   return (
     <Box m="20px">
       <Header title="Comment" subtitle="Customer's Comments" />
-      <Box
-        m="40px 0 0 0"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-        }}
-      >
-        <DataGrid
-          rows={users}
-          columns={columns}
-          getRowId={(row) => row.id}
-        />
+      <Box mt="20px">
+        {feedbacks.map(feedback => (
+          <CommentCard key={feedback.id} feedback={feedback} onDelete={handleDelete} />
+        ))}
       </Box>
     </Box>
   );
