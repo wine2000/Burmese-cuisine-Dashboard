@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Formik, Form } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -10,7 +11,9 @@ const Edit = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { item } = location.state || {};
-  
+
+  const articleId = item._id
+
   const handleFormSubmit = (values) => {
     console.log(values);
     navigate("/edit");
@@ -18,6 +21,16 @@ const Edit = () => {
 
   const handleCancel = () => {
     navigate("/category");
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`http://localhost:4000/articles/${articleId}`);
+      console.log(response.data.message); // 'Article deleted'
+      navigate("/category"); // Navigate to category after deletion
+    } catch (error) {
+      console.error(error.response ? error.response.data.message : error.message);
+    }
   };
 
   return (
@@ -106,28 +119,37 @@ const Edit = () => {
                   margin="normal"
                 />
                 <Box
-              display="flex"
-              mt="10px"
-              justifyContent="center"
-              width="fit-content"
-            >
-              <Button
-                type="submit"
-                color="secondary"
-                variant="contained"
-                style={{ marginRight: "20px" }}
-              >
-                Edit
-              </Button>
-              <Button
-                type="button"
-                color="secondary"
-                variant="contained"
-                onClick={handleCancel}
-              >
-                Cancel
-              </Button>
-            </Box>
+                  display="flex"
+                  mt="10px"
+                  justifyContent="center"
+                  width="fit-content"
+                >
+                  <Button
+                    type="submit"
+                    color="secondary"
+                    variant="contained"
+                    style={{ marginRight: "20px" }}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    type="button"
+                    color="secondary"
+                    variant="contained"
+                    style={{ marginRight: "20px" }}
+                    onClick={handleDelete} // Pass the actual article ID
+                  >
+                    Remove
+                  </Button>
+                  <Button
+                    type="button"
+                    color="secondary"
+                    variant="contained"
+                    onClick={handleCancel}
+                  >
+                    Cancel
+                  </Button>
+                </Box>
               </Box>
 
               {/* Second Section */}
@@ -187,7 +209,6 @@ const Edit = () => {
                 />
               </Box>
             </Box>
-            
           </Form>
         )}
       </Formik>

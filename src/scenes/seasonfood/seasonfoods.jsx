@@ -20,7 +20,7 @@ const SeasonFood = () => {
   }, []);
 
   const handleImageClick = (item) => {
-    navigate("/edit", { state: { item } });
+    navigate("/seasonalDetail", { state: { item } });
   };
   const handleEditButtonClick = () => {
     navigate("/addProduct");

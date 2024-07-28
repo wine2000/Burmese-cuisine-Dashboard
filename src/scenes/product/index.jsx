@@ -48,17 +48,18 @@ const Product = () => {
               sx={{ objectFit: 'cover' }}
               onDoubleClick={() => handleImageDoubleClick(item)}
             />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+            <CardContent style={{ textAlign: 'justify' }}>
+              <Typography gutterBottom variant="h5" component="div"style={{ textAlign: 'center' }}>
                 {item.name}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              {/* <Typography variant="body2" color="text.secondary" style={{ textAlign: 'center' }}>
                 {item.name_mm}
-              </Typography>
+              </Typography> */}
               <Typography variant="body5" color="text.secondary">
                 {item.description}
               </Typography>
             </CardContent>
+
           </Card>
         ))}
       </Box>

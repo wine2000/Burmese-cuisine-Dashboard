@@ -1,82 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
+import axios from "axios";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Formik, Form } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../../components/Header";
 
-const AddProduct = ({ onSave }) => { // Accept onSave as a prop
+const SeasonalDetail
+ = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   const location = useLocation();
   const { item } = location.state || {};
-  const [selectedImage, setSelectedImage] = useState(item ? `http://localhost:4000/${item.image}` : null);
 
+  const productId = item._id
 
+  const handleFormSubmit = (values) => {
+    console.log(values);
+    navigate("/edit");
+  };
 
   const handleCancel = () => {
     navigate("/category");
   };
 
-  const handleImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setSelectedImage(e.target.result);
-      };
-      reader.readAsDataURL(event.target.files[0]);
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`http://localhost:4000/products/${productId}`);
+      console.log(response.data.message);
+      alert("product deleted"); // 'Article deleted'
+      navigate("/seasonfood"); // Navigate to category after deletion
+    } catch (error) {
+      console.error(error.response ? error.response.data.message : error.message);
     }
   };
-
-  const handleFormSubmit = async (values, { setSubmitting, setError, setSuccess }) => {
-    setSubmitting(true);
-
-    const formData = new FormData();
-
-    // Append form fields to FormData
-    Object.keys(values).forEach((key) => {
-        if (Array.isArray(values[key])) {
-            formData.append(key, JSON.stringify(values[key]));
-        } else {
-            formData.append(key, values[key]);
-        }
-    });
-
-    // Append image separately
-    if (values.image instanceof File) {
-        formData.append('image', values.image);
-    }
-    try {
-        const response = await fetch('http://localhost:4000/products/addProduct', {
-            method: 'POST',
-            body: formData,
-        });
-
-        const data = await response.json();
-        
-        if (response.ok) {
-            setSuccess('Product uploaded successfully!');
-            setError('');
-        } else {
-            setError(data.message || 'Error uploading product');
-            setSuccess('');
-            alert("successful")
-        }
-    } catch (err) {
-        setError('Error uploading product');
-        setSuccess('');
-        alert("fail")
-    } finally {
-        setSubmitting(false);
-    }
-};
+ 
 
   return (
     <Box m="10px">
-      <Header title="Add Products" />
-      {selectedImage && (
+      <Header title="Edit Products" />
+      {item && (
         <Box mb="10px">
-          <img src={selectedImage} alt="Selected" style={{ width: '50%', height: 'auto' }} />
+          <img src={`http://localhost:4000/${item.image}`} alt={item.name} style={{ width: '50%', height: 'auto' }} />
         </Box>
       )}
       <Formik
@@ -84,8 +49,8 @@ const AddProduct = ({ onSave }) => { // Accept onSave as a prop
           name: item ? item.name : "",
           name_mm: item ? item.name_mm : "",
           image: item ? item.image : "",
-          recipe: item ? item.recipe : "",
-          recipe_mm: item ? item.recipe_mm : "",
+          description: item ? item.description : "",
+          description_mm: item ? item.description_mm : "",
           ingredients: item ? item.ingredients : "",
           ingredients_mm: item ? item.ingredients_mm : "",
           category: item ? item.category : "",
@@ -126,20 +91,16 @@ const AddProduct = ({ onSave }) => { // Accept onSave as a prop
                   fullWidth
                   margin="normal"
                 />
-                <Box mt="20px" mb="20px">
-                  <Button
-                    variant="contained"
-                    component="label"
-                  >
-                    Upload Image
-                    <input
-                      type="file"
-                      hidden
-                      accept="image/*"
-                      onChange={handleImageChange}
-                    />
-                  </Button>
-                </Box>
+                <TextField
+                  label="Image URL"
+                  name="image"
+                  value={values.image}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  variant="outlined"
+                  fullWidth
+                  margin="normal"
+                />
                 <TextField
                   label="Category"
                   name="category"
@@ -172,7 +133,16 @@ const AddProduct = ({ onSave }) => { // Accept onSave as a prop
                     variant="contained"
                     style={{ marginRight: "20px" }}
                   >
-                    Save
+                    Edit
+                  </Button>
+                  <Button
+                    type="button"
+                    color="secondary"
+                    variant="contained"
+                    style={{ marginRight: "20px" }}
+                    onClick={handleDelete} // Pass the actual article ID
+                  >
+                    Remove
                   </Button>
                   <Button
                     type="button"
@@ -189,9 +159,9 @@ const AddProduct = ({ onSave }) => { // Accept onSave as a prop
               <Box>
                 <Typography variant="h6">Details</Typography>
                 <TextField
-                  label="recipe"
-                  name="recipe"
-                  value={values.recipe}
+                  label="Description"
+                  name="description"
+                  value={values.description}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   variant="outlined"
@@ -202,9 +172,9 @@ const AddProduct = ({ onSave }) => { // Accept onSave as a prop
                   multiline={true}
                 />
                 <TextField
-                  label="recipe (MM)"
-                  name="recipe_mm"
-                  value={values.recipe_mm}
+                  label="Description (MM)"
+                  name="description_mm"
+                  value={values.description_mm}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   variant="outlined"
@@ -249,4 +219,5 @@ const AddProduct = ({ onSave }) => { // Accept onSave as a prop
   );
 };
 
-export default AddProduct;
+export default SeasonalDetail
+;
