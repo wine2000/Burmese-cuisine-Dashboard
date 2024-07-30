@@ -69,7 +69,7 @@ const Sidebar = () => {
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
-              color: colors.grey[100],
+              // color: colors.grey[100],
             }}
           >
             {!isCollapsed && (
@@ -79,8 +79,8 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
+                <Typography variant="h3">
+                  Myanmar Cuisine
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -103,7 +103,7 @@ const Sidebar = () => {
               <Box textAlign="center">
                 <Typography
                   variant="h2"
-                  color={colors.grey[100]}
+                  // color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
@@ -117,17 +117,17 @@ const Sidebar = () => {
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item
+            {/* <Item
               title="Dashboard"
               to="/"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              // color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Data
@@ -156,7 +156,7 @@ const Sidebar = () => {
             /> */}
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              // color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Pages
@@ -199,7 +199,7 @@ const Sidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              // color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Charts
@@ -220,13 +220,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            {/* <Item
-              title="Line Chart"
-              to="/line"
-              icon={<TimelineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
+            
             <Item
               title="Geography Chart Based Myanmar"
               to="/geography"

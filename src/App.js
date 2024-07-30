@@ -16,15 +16,18 @@ import Geography from "./scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
-import Edit from "./scenes/edit";
+
 import EthnicalFood from "./scenes/ethnicalfood";
 import AddProduct from "./scenes/addproduct";
 import SeasonFood from "./scenes/seasonfood/seasonfoods";
 import SeasonalDetail from "./scenes/seasonaledit/SeasonalDetail";
 import EthnicalDetail from "./scenes/ethnicaledit/EthnicalDetail";
 import CommentCard from "./scenes/commentCard/commentCard";
-import AddProduct1 from "./scenes/product/AddProduct";
-
+import ArticleAddProduct from "./scenes/product/articleAddProduct";
+import EthnicalAddProduct from "./scenes/product/ethnicalAddproduct";
+import IngredientsList from "./components/IngredientsList";
+import SeasonalAddProduct from "./scenes/seasonaledit/SeasonalAddProduct";
+import SeasonalEdit from "./scenes/seasonaledit/SeasonalEdit";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -51,14 +54,18 @@ function App() {
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/geography" element={<Geography />} />
               <Route path="/products" element={<Product/>}/>
-              <Route path="/edit" element={<Edit/>}/>
               <Route path="/ethnicalfood" element={<EthnicalFood/>}/>
               <Route path="/addProduct" element={<AddProduct/>}/>
               <Route path="/seasonfood" element={<SeasonFood/>}/>
               <Route path="/ethnicalDetail" element={<EthnicalDetail/>}/>
               <Route path="/seasonalDetail" element={<SeasonalDetail/>}/>
               <Route path="/commentCard" element={<CommentCard/>}/>
-              <Route path="/AddProduct1" element={<AddProduct1/>}/>
+              <Route path="/articleAddProduct" element={<ArticleAddProduct />}/>
+              <Route path="/ethnialAddProduct" element={<EthnicalAddProduct/>}/>
+              <Route path="/ingredientList" element={<IngredientsList/>}/>
+              <Route path="/seasonalAddProduct" element={<SeasonalAddProduct/>}/>
+              <Route path="/SeasonalEdit" element={<SeasonalEdit/>}/>
+
             </Routes>
           </main>
         </div>

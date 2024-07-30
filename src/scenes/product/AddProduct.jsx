@@ -48,7 +48,6 @@ const ProductForm = () => {
     form.append('recipe_mm', formData.recipe_mm);
     form.append('category', formData.category);
     form.append('category_mm', formData.category_mm);
-    
     form.append('ingredients', JSON.stringify(formData.ingredients));
     form.append('ingredients_mm', JSON.stringify(formData.ingredients_mm));
   
@@ -72,11 +71,9 @@ const ProductForm = () => {
     }
   };
   
-  
-  
-
   return (
     <form onSubmit={handleSubmit}>
+      <h3>Add Product</h3>
       <input
         type="text"
         name="name"
@@ -84,6 +81,7 @@ const ProductForm = () => {
         value={formData.name}
         onChange={handleChange}
         required
+        style={{ width: '28%', padding: '10px', fontSize: '16px' }}
       />
       <input
         type="text"
@@ -92,20 +90,25 @@ const ProductForm = () => {
         value={formData.name_mm}
         onChange={handleChange}
         required
+        style={{ width: '28%', padding: '10px', fontSize: '16px' }}
       />
+      <h3>Upload File Image</h3>
       <input
         type="file"
         name="image"
         onChange={handleChange}
         accept="image/*"
         required
+        style={{ width: '30%', padding: '10px', fontSize: '16px' }}
       />
+      <h3>Recipes</h3>
       <textarea
         name="recipe"
         placeholder="Recipe"
         value={formData.recipe}
         onChange={handleChange}
         required
+        style={{ width: '30%', padding: '10px', fontSize: '16px' }}
       />
       <textarea
         name="recipe_mm"
@@ -113,6 +116,7 @@ const ProductForm = () => {
         value={formData.recipe_mm}
         onChange={handleChange}
         required
+        style={{ width: '30%', padding: '10px', fontSize: '16px' }}
       />
 
       <h3>Ingredients</h3>
@@ -125,6 +129,7 @@ const ProductForm = () => {
             value={ingredient.name}
             onChange={(e) => handleChange(e, index)}
             required
+            style={{ width: '20%', padding: '10px', fontSize: '16px' }}
           />
           <input
             type="text"
@@ -133,6 +138,7 @@ const ProductForm = () => {
             value={ingredient.amount}
             onChange={(e) => handleChange(e, index)}
             required
+            style={{ width: '20%', padding: '10px', fontSize: '16px' }}
           />
           <input
             type="text"
@@ -141,10 +147,11 @@ const ProductForm = () => {
             value={ingredient.unit}
             onChange={(e) => handleChange(e, index)}
             required
+            style={{ width: '20%', padding: '10px', fontSize: '16px' }}
           />
         </div>
       ))}
-      <button type="button" onClick={() => addIngredient()}>
+      <button type="button" style={{backgroundColor:"yellow"}} onClick={() => addIngredient()}>
         Add Ingredient
       </button>
 
@@ -158,6 +165,7 @@ const ProductForm = () => {
             value={ingredient.name}
             onChange={(e) => handleChange(e, index, true)}
             required
+            style={{ width: '20%', padding: '10px', fontSize: '16px' }}
           />
           <input
             type="text"
@@ -166,6 +174,7 @@ const ProductForm = () => {
             value={ingredient.amount}
             onChange={(e) => handleChange(e, index, true)}
             required
+            style={{ width: '20%', padding: '10px', fontSize: '16px' }}
           />
           <input
             type="text"
@@ -174,13 +183,14 @@ const ProductForm = () => {
             value={ingredient.unit}
             onChange={(e) => handleChange(e, index, true)}
             required
+            style={{ width: '20%', padding: '10px', fontSize: '16px' }}
           />
         </div>
       ))}
-      <button type="button" onClick={() => addIngredient(true)}>
+      <button type="button"  style={{backgroundColor:"yellow"}}onClick={() => addIngredient(true)}>
         Add Ingredient (MM)
       </button>
-
+      <h3>Catagory</h3>
       <input
         type="text"
         name="category"
@@ -188,6 +198,7 @@ const ProductForm = () => {
         value={formData.category}
         onChange={handleChange}
         required
+        style={{ width: '25%', padding: '10px', fontSize: '16px' }}
       />
       <input
         type="text"
@@ -196,9 +207,13 @@ const ProductForm = () => {
         value={formData.category_mm}
         onChange={handleChange}
         required
+        style={{ width: '25%', padding: '10px', fontSize: '16px', margin: '10px 0' }}
       />
-
-      <button type="submit">Submit</button>
+      <button type="submit"
+        style={{ width: '10%', padding: '10px', 
+        backgroundColor: 'yellow',
+        color: 'black',
+        borderRadius: '5px', fontSize: '16px', margin: '10px 0'}}>Submit</button>
     </form>
   );
 };

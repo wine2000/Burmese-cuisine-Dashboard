@@ -25,7 +25,7 @@ const EthnicalFood = () => {
     navigate("/ethnicalDetail", { state: { item } });
   };
   const handleEditButtonClick = () => {
-    navigate("/addProduct");
+    navigate("/ethnialAddproduct");
   };
   return (
     <Box m="20px">

@@ -1,5 +1,5 @@
 import { Box, IconButton } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
@@ -81,7 +81,6 @@ const Users = () => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
       // Update the state after a successful delete
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
     } catch (error) {
@@ -135,7 +134,7 @@ const Users = () => {
           rows={users}
           columns={columns}
           getRowId={(row) => row.id}
-          components={{ Toolbar: GridToolbar }}
+          // components={{ Toolbar: GridToolbar }}
         />
       </Box>
     </Box>
