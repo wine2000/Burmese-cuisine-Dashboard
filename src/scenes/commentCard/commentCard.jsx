@@ -13,7 +13,9 @@ const CommentCard = ({ feedback, onDelete }) => {
         <Typography variant="h6" component="div">
           {feedback.user.user} {/* Accessing the name property from the user object */}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          style={{ fontSize: '18px', fontWeight: 'bold' }}
+          variant="body2" color="text.secondary">
           {feedback.comment}
         </Typography>
       </CardContent>

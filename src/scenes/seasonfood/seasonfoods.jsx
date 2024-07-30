@@ -23,7 +23,7 @@ const SeasonFood = () => {
     navigate("/seasonalDetail", { state: { item } });
   };
   const handleEditButtonClick = () => {
-    navigate("/addProduct1");
+    navigate("/seasonalAddProduct");
   };
   return (
     <Box m="20px">

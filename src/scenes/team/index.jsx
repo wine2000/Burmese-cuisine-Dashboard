@@ -59,9 +59,9 @@ const Team = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <Box m="20px">
-      <Header title="Comment" subtitle="Customer's Comments" />
-      <Box mt="20px">
+    <Box m="10px">
+      <Header title="Customer's Comments" />
+      <Box mt="10px">
         {feedbacks.map(feedback => (
           <CommentCard key={feedback.id} feedback={feedback} onDelete={handleDelete} />
         ))}
