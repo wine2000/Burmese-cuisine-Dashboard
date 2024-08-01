@@ -79,14 +79,14 @@ const SeasonalDetail = () => {
             justifyContent="center"
             width="fit-content"
           >
-            <Button
+            {/* <Button
               color="secondary"
               variant="contained"
               style={{ marginRight: "20px" }}
               onClick={handleNavigateToEdit}
             >
               Edit
-            </Button>
+            </Button> */}
             <Button
               color="secondary"
               variant="contained"
