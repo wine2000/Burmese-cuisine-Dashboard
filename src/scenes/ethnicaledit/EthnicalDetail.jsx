@@ -75,14 +75,14 @@ const EthnicalDetail = () => {
             justifyContent="center"
             width="fit-content"
           >
-            <Button
+            {/* <Button
               color="secondary"
               variant="contained"
               style={{ marginRight: "20px" }}
               onClick={() => navigate("/edit")}
             >
               Edit
-            </Button>
+            </Button> */}
             <Button
               color="secondary"
               variant="contained"
