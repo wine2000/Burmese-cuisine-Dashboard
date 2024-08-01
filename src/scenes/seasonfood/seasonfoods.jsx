@@ -26,7 +26,10 @@ const SeasonFood = () => {
     navigate("/seasonalAddProduct");
   };
   return (
-    <Box m="20px">
+    <Box 
+    style={{paddingLeft:30}}
+
+    m="20px">
       <Header title="Seasonal Food" />
       <Button
         onClick={handleEditButtonClick}
