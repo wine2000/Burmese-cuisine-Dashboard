@@ -28,7 +28,9 @@ const EthnicalFood = () => {
     navigate("/ethnialAddproduct");
   };
   return (
-    <Box m="20px">
+    <Box m="20px"
+    style={{paddingLeft:30}}
+    >
       <Header title="Ethnical Food"/>
       
       <Button

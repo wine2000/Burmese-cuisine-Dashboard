@@ -206,13 +206,13 @@ const Sidebar = () => {
                 setSelected={setSelected}
               />
 
-              <Item
+              {/* <Item
                 title="FAQ Page"
                 to="/faq"
                 icon={<HelpOutlineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
-              />
+              /> */}
               <Item
                 title="Geography Chart Based Myanmar"
                 to="/geography"
@@ -236,7 +236,7 @@ const Sidebar = () => {
         sx={{
           marginLeft: isCollapsed ? "80px" : "250px",
           flexGrow: 1,
-          padding: "20px",
+          padding: "30px",
           overflowY: "auto", // Make sure content area scrolls
         }}
       >

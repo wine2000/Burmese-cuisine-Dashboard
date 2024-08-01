@@ -58,7 +58,10 @@ const SeasonalEdit = ({ productId }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form 
+        style={{paddingLeft:30}}
+
+        onSubmit={handleSubmit}>
             <input type="text" name="name" value={product.name} onChange={handleChange} placeholder="Product Name" required />
             <input type="text" name="name_mm" value={product.name_mm} onChange={handleChange} placeholder="Product Name (MM)" required />
             <input type="text" name="image" value={product.image} onChange={handleChange} placeholder="Image URL" required />

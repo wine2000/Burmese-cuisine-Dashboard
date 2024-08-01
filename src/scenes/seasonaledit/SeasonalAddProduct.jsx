@@ -75,7 +75,10 @@ const ProductForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form 
+        style={{paddingLeft:30}}
+
+        onSubmit={handleSubmit}>
             <h3>Add Product</h3>
             <input
                 type="text"

@@ -57,7 +57,10 @@ const ArticleAddProduct = () => {
   };
 
   return (
-    <Box m="20px" maxWidth="600px" mx="auto">
+    <Box 
+    style={{paddingLeft:30}}
+
+    m="20px" maxWidth="600px" mx="auto">
       <Typography variant="h4" sx={{ fontSize: '2rem', textAlign: 'center', fontWeight: 'bold', color: 'secondary' }} gutterBottom>Add Article</Typography>
       <Formik
         initialValues={{
