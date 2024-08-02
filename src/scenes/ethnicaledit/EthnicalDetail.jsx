@@ -29,7 +29,9 @@ const EthnicalDetail = () => {
   };
 
   return (
-    <Box m="10px">
+    <Box m="10px"
+    style={{paddingLeft:30}}
+    >
       <Header title="Product Details" />
       {item && (
         <Box mb="10px">

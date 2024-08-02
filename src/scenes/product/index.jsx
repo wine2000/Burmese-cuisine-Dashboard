@@ -53,7 +53,10 @@ const Product = () => {
   };
 
   return (
-    <Box m="20px">
+    <Box
+    style={{paddingLeft:30}}
+
+     m="20px">
       <Header title="Articles" />
       <Button
         onClick={handleEditButtonClick}

@@ -33,7 +33,10 @@ const SeasonalDetail = () => {
   };
 
   return (
-    <Box m="10px">
+    <Box 
+    style={{paddingLeft:30}}
+
+    m="10px">
       <Header title="Product Details" />
       {item && (
         <Box mb="10px">
